@@ -5,10 +5,15 @@
 {% block content %}
     <!-- Header -->
     <div id="feature">
-        <div class="text-center">
-            <div class="overlay">
-                <h1 class="display-1 pb4">Ancient Architecture</h1>
-                <h3>Discover our forgotten roots</h3>
+
+        <div class="overlay">
+            <div class="container text-center">
+                {# Desktop #}
+                <h1 class="display-1 pb4 d-none d-md-block">Ancient Architecture</h1>
+                <h3 class="d-none d-md-block">Discover our forgotten roots</h3>
+
+                {#  Mobile  #}
+                <h3 class="pb4 d-sm-none">Ancient Architecture</h3>
                 <button class="btn btn-success">View</button>
             </div>
         </div>

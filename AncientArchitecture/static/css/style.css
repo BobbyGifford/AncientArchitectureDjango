@@ -1,6 +1,9 @@
 #feature {
-    background: url(../img/abandoned-ancient-antique-672630.jpg) no-repeat top center fixed;
-    background-size: 100%;
+    background: url(../img/abandoned-ancient-antique-672630.jpg) no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     position: relative;
     height: 100vh;
     color: #fff;
