@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render, get_object_or_404
 
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
+from .models import Profile
 
 
 def register(request):
@@ -27,8 +29,11 @@ def register(request):
                 else:
                     user = User.objects.create_user(username=username, password=password, email=email,
                                                     first_name=first_name, last_name=last_name)
+                    user_profile = Profile(user=user)
 
                     user.save()
+                    user_profile.save()
+
                     messages.success(request, "Registered")
                     return redirect('login')
         else:
@@ -36,6 +41,13 @@ def register(request):
             return redirect('register')
     else:
         return render(request, 'accounts/register.html')
+
+
+def profile(request):
+    context = {
+        'profile': Profile(user=request.user)
+    }
+    return render(request, 'accounts/profile.html', context)
 
 
 def login(request):
