@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
+
     <div class="container">
         {% if user.is_authenticated %}
-            <div class="text-center mt-2">
-                <h1>Username: {{ user.username }}</h1>
+            <div class="mt-2">
+
+                <div class="text-center">
+                    <h1>{{ user.username }}</h1>
+                </div>
+
+                {% if profile.profile_pic %}
+                    <img style="max-height: 25vh; display: block; margin: 0 auto"
+                         src="{{ profile.profile_pic.url }}">
+                {% else %}
+                    <img style="max-height: 20vh; display: block; margin: 0 auto"
+                         src="{% static 'img/blank-profile-picture.png' %}">
+                {% endif %}
+
                 {% if profile.description %}
-                    <h1>{{ profile.description }}</h1>
+                    <p class="mt-5">{{ profile.description }}</p>
                 {% else %}
                     <h3 class="mt-5">No Description <br/> You should add one</h3>
                 {% endif %}
+
+            </div>
+
             </div>
         {% endif %}
-    </div>
 {% endblock %}

@@ -44,9 +44,11 @@ def register(request):
 
 
 def profile(request):
+    user_profile = Profile.objects.get(user=request.user)
     context = {
-        'profile': Profile(user=request.user)
+        'profile': user_profile
     }
+
     return render(request, 'accounts/profile.html', context)
 
 
