@@ -3,11 +3,10 @@
 {% load static %}
 
 {% block content %}
+    <div class="bg-dark text-white" style="height: 94vh;">
 
-    <div class="container">
-        {% if user.is_authenticated %}
-            <div class="mt-2">
-
+        <div class="container">
+            {% if user.is_authenticated %}
                 <div class="text-center">
                     <h1>{{ user.username }}</h1>
                 </div>
@@ -20,14 +19,26 @@
                          src="{% static 'img/blank-profile-picture.png' %}">
                 {% endif %}
 
-                {% if profile.description %}
-                    <p class="mt-5">{{ profile.description }}</p>
-                {% else %}
-                    <h3 class="mt-5">No Description <br/> You should add one</h3>
+                {% if profile.user == user %}
+                    <div class="text-center mt-3">
+                        <a href="{% url 'edit_profile_pic' %}" class="btn btn-lg btn-success">Edit Profile Picture</a>
+                    </div>
                 {% endif %}
 
-            </div>
+                {% if profile.description %}
+                    <p class="mt-3 ml-5">{{ profile.description }}</p>
+                {% else %}
+                    <h3 class="mt-5">No Description</h3>
+                {% endif %}
+                </div>
 
-            </div>
-        {% endif %}
+                {% if profile.user == user %}
+                    <div class="text-center">
+                        <a href="{% url 'edit_profile' %}" class="btn btn-lg btn-success">Edit Profile Details</a>
+                    </div>
+                {% endif %}
+
+                </div>
+            {% endif %}
+
 {% endblock %}

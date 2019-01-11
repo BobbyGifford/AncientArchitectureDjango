@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="bg-dark text-white" style="height: 94vh;">
+        <div class="container">
+            <h1 class="text-center">Edit Profile</h1>
+            <div class="row">
+                <div class="col-8 offset-2">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="profile_pic">Profile Pic</label>
+                            <input value="{{ profile.profile_pic }}" type="file" name="profile_pic"
+                                   class="form-control-file" required>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

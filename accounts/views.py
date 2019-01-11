@@ -1,6 +1,3 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, get_object_or_404
-
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
@@ -50,6 +47,37 @@ def profile(request):
     }
 
     return render(request, 'accounts/profile.html', context)
+
+
+def edit_profile(request):
+    user_profile = Profile.objects.get(user=request.user)
+    context = {
+        'profile': user_profile
+    }
+
+    if request.method == 'POST':
+
+        new_description = request.POST['description']
+        old_profile = Profile.objects.get(user=request.user)
+        old_profile.description = new_description
+        old_profile.save()
+
+        return render(request, 'pages/index.html')
+
+    return render(request, 'accounts/edit_profile.html', context)
+
+
+def edit_profile_pic(request):
+    if request.method == 'POST':
+
+        new_profile_pic = request.FILES['profile_pic']
+        old_profile = Profile.objects.get(user=request.user)
+        old_profile.profile_pic = new_profile_pic
+        old_profile.save()
+
+        return render(request, 'pages/index.html')
+
+    return render(request, 'accounts/edit_profile_pic.html')
 
 
 def login(request):
