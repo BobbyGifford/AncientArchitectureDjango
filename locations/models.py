@@ -14,3 +14,6 @@ class Location(models.Model):
     youtube_link = models.CharField(max_length=250, blank=True)
     wiki_link = models.CharField(max_length=250, blank=True)
     description = models.TextField()
+
+    def __str__(self):
+        return self.title
