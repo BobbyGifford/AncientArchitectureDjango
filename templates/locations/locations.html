@@ -7,14 +7,31 @@
             {% for location in locations %}
                 <div class="card bg-dark text-white">
                     <img src="{{ location.main_image.url }}" class="card-img" alt="...">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title text-center">{{ location.title }}</h5>
+                    <div class="card-img-overlay text-center ">
+                        <h5 class="card-title">{{ location.title }}</h5>
+                        <a class="text-white" href="{% url 'location' location.id %}">View Details</a>
                         <hr style="background-color: white">
-                        <div class="text-center">
-                            <button class="btn btn-info">View</button>
+                        <div class="card-body text-center">
+                            {# <a href="{% url 'location' location.id %}">View</a> #}
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="card bg-dark border-info col-3 mt-3" style="background-color: black">
+                        <img src="{{ location.main_image.url }}" class="card-img-top mt-1" alt="img_main">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ location.title }}</h5>
+                            <div>
+                                <hr class="bg-info" size="50">
+                                {{ location.region }}, {{ location.country }}
+                            </div>
+                            <a href="{% url 'location' location.id %}" class="btn btn-info mt-3">View</a>
+                        </div>
+
+                    </div>
+                </div>
+
             {% endfor %}
         </div>
     </div>

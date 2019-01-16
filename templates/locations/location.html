@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="bg-dark text-white" style="height: 94vh;">
+        <div class="container">
+            <div class="text-center">
+                <h1>{{ location.title }}</h1>
+                <h2>{{ location.region }}, {{ location.country }}</h2>
+            </div>
+            <hr color="white"/>
+            <div class="row">
+                <div class="col-12">
+                    <img class="img-fluid" src="{{ location.main_image.url }}" alt="main_img"/>
+                </div>
+
+                <div class="col-8 offset-2">
+                    <p class="my-3">{{ location.description }}</p>
+                    <p class="mt-3">Added
+                        by: {{ location.profile.user.first_name }} {{ location.profile.user.last_name }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
