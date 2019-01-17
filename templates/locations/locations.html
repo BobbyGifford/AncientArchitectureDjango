@@ -4,25 +4,33 @@
     <div class="feature text-white" style="min-height: 94vh">
         <div class="overlay">
             <div class="container">
-                <h2 class="display-2 text-center">Explore</h2>
 
-                <div class="card bg-dark text-white">
-                    <img src="{{ first_location.main_image.url }}" class="card-img" alt="...">
-                    <div class="card-img-overlay text-center ">
-                        <h5 class="card-title">{{ first_location.title }}</h5>
-                        <a class="text-white" href="{% url 'location' first_location.id %}">View Details</a>
-                        <hr style="background-color: white">
-                        <div class="card-body text-center">
-                            {# <a href="{% url 'location' location.id %}">View</a> #}
+                <div class="text-center">
+                    <h1 class="display-1">Explore</h1>
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-light mb-3" href="{% url 'add_location' %}"><i class="fas fa-plus-circle"></i>
+                            Add Location</a>
+                    {% endif %}
+                </div>
+
+                {# Show on desktop only#}
+                <div class="d-none d-md-block">
+                    <div class="card bg-dark text-white">
+                        <img src="{{ first_location.main_image.url }}" class="card-img" alt="...">
+                        <div class="card-img-overlay text-center ">
+                            <h5 class="card-title">{{ first_location.title }}</h5>
+                            <a class="text-white" href="{% url 'location' first_location.id %}">View Details</a>
+                            <hr style="background-color: white">
                         </div>
                     </div>
                 </div>
+                {#             #}
 
                 {% for location in locations %}
                     <div class="row">
-                        <div class="card bg-dark border-white col-3 mt-3" style="opacity: .7">
+                        <div class="card bg-dark border-white col-md-3 mt-3" style="opacity: .7">
                             <img src="{{ location.main_image.url }}" class="card-img-top mt-1" alt="img_main">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h5 class="card-title">{{ location.title }}</h5>
                                 <div>
                                     <hr color="white" size="50">

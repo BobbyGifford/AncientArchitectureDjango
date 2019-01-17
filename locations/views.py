@@ -24,3 +24,19 @@ def location(request, location_id):
     }
 
     return render(request, 'locations/location.html', context)
+
+
+def add_location(request):
+    if request.method == 'POST':
+        sub_image_1 = request.FILES['sub_image_1'] if 'sub_image_1' in request.FILES else None
+        sub_image_2 = request.FILES['sub_image_2'] if 'sub_image_2' in request.FILES else None
+        sub_image_3 = request.FILES['sub_image_3'] if 'sub_image_3' in request.FILES else None
+
+        # new_location = Location(
+        #     title=request.POST['title'],
+        #     country=request.POST['country'],
+        #     region=request.POST['region'],
+        #     main_image=request.FILES['main_image']
+        # )
+
+    return render(request, 'locations/add_location.html')
