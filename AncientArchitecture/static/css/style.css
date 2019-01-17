@@ -5,16 +5,15 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     position: relative;
-    height: 100vh;
+    min-height: 94vh;
     color: #fff;
 }
 
 
 .feature .overlay {
     position: absolute;
-    padding-top: 15vh;
     left: 0;
-    height: 100vh;
+    min-height: 94vh;
     width: 100%;
     background: rgba(51, 51, 51, 0.8);
 }
@@ -23,6 +22,14 @@
     font-size: 4rem;
     letter-spacing: 0.8rem;
     background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, .2));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.feature .overlay h2 {
+    font-size: 3rem;
+    letter-spacing: 0.8rem;
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, .3));
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }

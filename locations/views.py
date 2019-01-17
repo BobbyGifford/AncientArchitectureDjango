@@ -7,7 +7,10 @@ from .models import Location
 def index(request):
     locations = Location.objects.all()
 
+    first_location = locations[0]
+
     context = {
+        'first_location': first_location,
         'locations': locations
     }
     return render(request, 'locations/locations.html', context)
