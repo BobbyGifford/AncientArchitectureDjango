@@ -60,6 +60,13 @@ def edit_profile(request):
         new_description = request.POST['description']
         old_profile = Profile.objects.get(user=request.user)
         old_profile.description = new_description
+
+        # Enter condition for if profile pic was changed.
+        # _____________________________________________________________
+        # if 'profile_image' in request.FILES:
+        #   old_profile.profile_image = request.FILES['profile_image'}
+        # _____________________________________________________________
+
         old_profile.save()
 
         return render(request, 'pages/index.html')

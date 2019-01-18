@@ -13,35 +13,46 @@
                     {% endif %}
                 </div>
 
-                {# Show on desktop only#}
+                {# Show on desktop only #}
                 <div class="d-none d-md-block">
-                    <div class="card bg-dark text-white">
-                        <img src="{{ first_location.main_image.url }}" class="card-img" alt="...">
-                        <div class="card-img-overlay text-center ">
-                            <h5 class="card-title">{{ first_location.title }}</h5>
-                            <a class="text-white" href="{% url 'location' first_location.id %}">View Details</a>
-                            <hr style="background-color: white">
+                    <div class="row">
+                        <div class="col-8 offset-2">
+                            <div class="card bg-dark text-white">
+                                <img src="{{ first_location.main_image.url }}" class="card-img" alt="...">
+                                <div class="card-img-overlay text-center ">
+                                    <h5 class="card-title">{{ first_location.title }}</h5>
+                                    <a class="text-white" href="{% url 'location' first_location.id %}">View Details</a>
+                                    <hr style="background-color: white">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 {#             #}
 
-                {% for location in locations %}
-                    <div class="row">
-                        <div class="card bg-dark border-white col-md-3 mt-3" style="opacity: .7">
-                            <img src="{{ location.main_image.url }}" class="card-img-top mt-1" alt="img_main">
+                <div class="row mt-1">
+                    {% for location in locations %}
+                        <div class="card bg-dark border-white col-md-3" style="opacity: .8">
+                            <img src="{{ location.main_image.url }}" class="card-img-top mt-1" alt="img_main"
+                                 style="max-height: 13vh">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ location.title }}</h5>
                                 <div>
                                     <hr color="white" size="50">
                                     {{ location.region }}, {{ location.country }}
                                 </div>
-                                <a href="{% url 'location' location.id %}" class="btn btn-outline-light mt-3">View</a>
+                                <a href="{% url 'location' location.id %}" class="btn btn-outline-light">View</a>
+                                {% if location.profile.user == request.user %}
+                                    <a href="{% url 'index' %}" class="btn btn-info">Edit</a>
+                                {% endif %}
                             </div>
 
                         </div>
-                    </div>
-                {% endfor %}
+
+                    {% endfor %}
+                </div>
+
+
             </div>
         </div>
     </div>
