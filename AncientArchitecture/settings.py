@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'theories.apps.TheoriesConfig',
     'locations.apps.LocationsConfig',
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
