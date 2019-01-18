@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="feature text-white">
+        <div class="overlay">
+            <div class="container">
+                <h3 class="display-3 text-center">{{ theory.title }}</h3>
+                <hr color="white">
+                <p>{{ theory.theory }}</p>
+                <h4>Evidence</h4>
+                <ul>
+                    {% for item in evidence %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
