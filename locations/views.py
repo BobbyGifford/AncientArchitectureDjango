@@ -3,8 +3,6 @@ from .models import Location
 from accounts.models import Profile
 
 
-# Create your views here.
-
 def index(request):
     locations = Location.objects.all()
 
@@ -28,13 +26,11 @@ def location(request, location_id):
 
 
 def add_location(request):
+    context = {
+        'add_or_update': 'Add'
+    }
+
     if request.method == 'POST':
-        # File retrieval as ternary
-        # _______________________________________________________________________________________
-        # sub_image_1 = request.FILES['sub_image_1'] if 'sub_image_1' in request.FILES else None
-        # sub_image_2 = request.FILES['sub_image_2'] if 'sub_image_2' in request.FILES else None
-        # sub_image_3 = request.FILES['sub_image_3'] if 'sub_image_3' in request.FILES else None
-        # _______________________________________________________________________________________
 
         new_location = Location(
             profile=Profile.objects.get(user=request.user),
@@ -42,7 +38,6 @@ def add_location(request):
             country=request.POST['country'],
             region=request.POST['region'],
             description=request.POST['description'],
-            main_image=request.FILES['main_image'],
             wiki_link=request.POST['wiki_link']
         )
 
@@ -50,6 +45,9 @@ def add_location(request):
             parsed_link = request.POST['youtube_link']
             parsed_link.replace('watch?v=', 'embed/')
             new_location.youtube_link = parsed_link
+
+        if 'main_image' in request.FILES:
+            new_location.main_image = request.FILES['main_image']
 
         if 'sub_image_1' in request.FILES:
             new_location.sub_image_1 = request.FILES['sub_image_1']
@@ -63,4 +61,42 @@ def add_location(request):
         new_location.save()
         return index(request)
 
-    return render(request, 'locations/add_location.html')
+    return render(request, 'locations/add_location.html', context)
+
+
+def edit_location(request, location_id):
+    old_location = Location.objects.get(pk=location_id)
+    context = {
+        'add_or_update': 'Update',
+        'location': old_location
+    }
+
+    if request.method == 'POST':
+
+        old_location.title = request.POST['title']
+        old_location.country = request.POST['country']
+        old_location.region = request.POST['region']
+        old_location.wiki_link = request.POST['wiki_link']
+
+        if 'youtube_link' in request.POST:
+            parsed_link = request.POST['youtube_link']
+            parsed_link.replace('watch?v=', 'embed/')
+            old_location.youtube_link = parsed_link
+
+        if 'main_image' in request.FILES:
+            old_location.main_image = request.FILES['main_image']
+
+        if 'sub_image_1' in request.FILES:
+            old_location.sub_image_1 = request.FILES['sub_image_1']
+
+        if 'sub_image_2' in request.FILES:
+            old_location.sub_image_2 = request.FILES['sub_image_2']
+
+        if 'sub_image_3' in request.FILES:
+            old_location.sub_image_3 = request.FILES['sub_image_3']
+
+        old_location.save()
+
+        return index(request)
+
+    return render(request, 'locations/add_location.html', context)

@@ -43,7 +43,7 @@
                                 </div>
                                 <a href="{% url 'location' location.id %}" class="btn btn-outline-light">View</a>
                                 {% if location.profile.user == request.user %}
-                                    <a href="{% url 'index' %}" class="btn btn-info">Edit</a>
+                                    <a href="{% url 'edit_location' location.id %}" class="btn btn-info">Edit</a>
                                 {% endif %}
                             </div>
 
