@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="feature text-white">
@@ -6,13 +7,61 @@
             <div class="container">
                 <h3 class="display-3 text-center">{{ theory.title }}</h3>
                 <hr color="white">
+
+                <div class="row">
+                    {% if theory.main_image %}
+                        <div class="col-md-6">
+                            <img style="max-height: 50vh;" class="img-fluid mb-2" src="{{ theory.main_image.url }}">
+                        </div>
+                    {% else %}
+                        <div class="col-md-6">
+                            <img style="max-height: 30vh;" class="img-fluid mb-2"
+                                 src="{% static "img/architectural-design1.jpg" %}">
+                        </div>
+                    {% endif %}
+
+                    <div class="col-md-6 pl-5">
+                        <h4>Evidence</h4>
+                        <ul>
+                            {% for item in evidence %}
+                                <li>{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+
+                        {% if theory.youtube_link %}
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#theoryVideo">
+                                View Video
+                            </button>
+                        {% endif %}
+
+                    </div>
+                </div>
+
                 <p>{{ theory.theory }}</p>
-                <h4>Evidence</h4>
-                <ul>
-                    {% for item in evidence %}
-                        <li>{{ item }}</li>
-                    {% endfor %}
-                </ul>
+
+                <!-- Modal -->
+                <div class="modal fade" id="theoryVideo" tabindex="-1" role="dialog"
+                     aria-labelledby="theoryVideo" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content bg-dark">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="theoryVideo">{{ theory.title }}</h5>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="100%" src="{{ theory.youtube_link }}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

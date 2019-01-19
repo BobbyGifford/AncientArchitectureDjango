@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <div class="feature text-white">
@@ -9,9 +10,12 @@
 
                 <div class="row">
                     {% for theory in theories %}
-                        <a href="{% url 'theory' theory.id %}" class="bg-dark col-md-6" style="opacity: .8;">
+                        <a href="{% url 'theory' theory.id %}" class="bg-dark col-md-6 mb-2" style="opacity: .8;">
                             {% if theory.main_image %}
                                 <img style="height: 5vh" alt="main_img" src={{ theory.main_image.url }}>
+                            {% else %}
+                                <img style="height: 5vh" alt="main_img"
+                                     src={% static 'img/architectural-design1.jpg' %}>
                             {% endif %}
                             <span class="text-white">{{ theory.title }}</span>
                         </a>
