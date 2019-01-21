@@ -12,3 +12,6 @@ class Theory(models.Model):
 
     class Meta:
         verbose_name_plural = "Theories"
+
+    def __str__(self):
+        return self.title

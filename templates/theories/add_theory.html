@@ -13,7 +13,8 @@
 
                                 <div class="form-group col-12">
                                     <label for="title">Title</label>
-                                    <input id="title" type="text" name="title" class="form-control" required>
+                                    <input id="title" type="text" name="title" class="form-control"
+                                           value="{{ theory.title }}" required>
                                 </div>
 
                                 <div class="form-group col-12">
@@ -25,20 +26,20 @@
                                 <div class="form-group col-12">
                                     <label for="theory">Theory</label>
                                     <textarea id="theory" type="text" name="theory" class="form-control"
-                                              rows="6" required></textarea>
+                                              rows="6" required>{{ theory.theory }}</textarea>
                                 </div>
 
                                 <div class="form-group col-12">
                                     <label for="evidence">Evidence</label>
                                     <textarea id="evidence" type="text" name="evidence" class="form-control"
-                                              rows="6" required></textarea>
+                                              rows="6" required>{{ theory.evidence }}</textarea>
                                 </div>
 
 
                                 <div class="form-group col-6">
                                     <label for="youtube_link">Youtube Link</label>
                                     <input id="youtube_link" type="text" name="youtube_link" class="form-control"
-                                           value="{{ location.youtube_link }}">
+                                           value="{{ theory.youtube_link }}">
                                 </div>
 
                             </div>

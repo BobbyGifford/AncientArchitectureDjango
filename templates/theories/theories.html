@@ -18,15 +18,26 @@
 
                 <div class="row">
                     {% for theory in theories %}
-                        <a href="{% url 'theory' theory.id %}" class="bg-dark col-md-6 mb-2" style="opacity: .8;">
-                            {% if theory.main_image %}
-                                <img style="height: 5vh" alt="main_img" src={{ theory.main_image.url }}>
-                            {% else %}
-                                <img style="height: 5vh" alt="main_img"
-                                     src={% static 'img/architectural-design1.jpg' %}>
+                        <div class="bg-dark col-md-6 mb-2" style="opacity: .8;">
+                            <a class="text-white" href="{% url 'theory' theory.id %}">
+                                {% if theory.main_image %}
+                                    <img style="height: 5vh" alt="main_img" src={{ theory.main_image.url }}>
+                                {% else %}
+                                    <img style="height: 5vh" alt="main_img"
+                                         src={% static 'img/architectural-design1.jpg' %}>
+                                {% endif %}
+
+                                {{ theory.title }}</a>
+                            {% if theory.profile.user == request.user %}
+                                <a class="ml-2 btn btn-sm btn-outline-info" href="{% url 'edit_theory' theory.id %}"><i
+                                        class="fas fa-edit"></i> Edit</a>
+
+                                <a class="ml-2 btn btn-sm btn-outline-danger"
+                                   href="{% url 'delete_theory' theory.id %}"><i
+                                        class="fas fa-trash-alt"></i> Delete</a>
                             {% endif %}
-                            <span class="text-white">{{ theory.title }}</span>
-                        </a>
+
+                        </div>
                     {% endfor %}
                 </div>
 
