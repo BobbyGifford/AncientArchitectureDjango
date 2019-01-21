@@ -100,3 +100,8 @@ def edit_location(request, location_id):
         return index(request)
 
     return render(request, 'locations/add_location.html', context)
+
+
+def delete_location(request, location_id):
+    Location.objects.filter(id=location_id).delete()
+    return index(request)
