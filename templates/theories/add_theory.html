@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="feature">
+        <div class="overlay text-white">
+            <div class="container">
+                <h1 class="display-1 text-center">{{ add_or_update }} Location</h1>
+                <div class="row">
+                    <div class="bg-dark col-8 offset-2">
+                        <form method="POST" enctype="multipart/form-data">
+                            <div class="row">
+                                {% csrf_token %}
+
+                                <div class="form-group col-12">
+                                    <label for="title">Title</label>
+                                    <input id="title" type="text" name="title" class="form-control" required>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="main_image">Main image</label>
+                                    <input id="main_image" type="file" name="main_image"
+                                           class="form-control-file">
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="theory">Theory</label>
+                                    <textarea id="theory" type="text" name="theory" class="form-control"
+                                              rows="6" required></textarea>
+                                </div>
+
+                                <div class="form-group col-12">
+                                    <label for="evidence">Evidence</label>
+                                    <textarea id="evidence" type="text" name="evidence" class="form-control"
+                                              rows="6" required></textarea>
+                                </div>
+
+
+                                <div class="form-group col-6">
+                                    <label for="youtube_link">Youtube Link</label>
+                                    <input id="youtube_link" type="text" name="youtube_link" class="form-control"
+                                           value="{{ location.youtube_link }}">
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

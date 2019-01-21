@@ -22,3 +22,7 @@ def theory(request, theory_id):
         'evidence': evidence_list
     }
     return render(request, 'theories/theory.html', context)
+
+
+def add_theory(request):
+    return render(request, 'theories/add_theory.html')
