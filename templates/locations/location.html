@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-    <div class="feature text-white">
+    <div class="feature">
         <div class="overlay">
             <div class="container">
 
@@ -55,6 +55,38 @@
                     {% endif %}
                 </div>
 
+                <div class="text-center mt-3">
+                    <a href="#description" class="btn btn-outline-light">Description</a>
+                    {% if location.youtube_link %}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-light" data-toggle="modal"
+                                data-target="#locationVideo">
+                            View Video
+                        </button>
+                    {% endif %}
+                </div>
+
+                {# Modal Popup #}
+                <div class="modal fade" id="locationVideo" tabindex="-1" role="dialog"
+                     aria-labelledby="locationVideo" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content bg-dark">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="locationVideo">{{ location.title }}</h5>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="100%" src="{{ location.youtube_link }}"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </div>
@@ -63,7 +95,7 @@
     <div class="text-white bg-dark" style="min-height: 35vh; position: relative">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 bg-dark">
+                <div id="description" class="col-md-12 bg-dark">
                     <p class="my-3">{{ location.description }}</p>
                     <p class="mt-3">Added
                         by: {{ location.profile.user.first_name }} {{ location.profile.user.last_name }}</p>

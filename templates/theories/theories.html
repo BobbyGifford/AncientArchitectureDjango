@@ -18,26 +18,30 @@
 
                 <div class="row">
                     {% for theory in theories %}
-                        <div class="bg-dark col-md-6 mb-2" style="opacity: .8;">
-                            <a class="text-white" href="{% url 'theory' theory.id %}">
-                                {% if theory.main_image %}
-                                    <img style="height: 5vh" alt="main_img" src={{ theory.main_image.url }}>
-                                {% else %}
-                                    <img style="height: 5vh" alt="main_img"
-                                         src={% static 'img/architectural-design1.jpg' %}>
-                                {% endif %}
+                        <a class="bg-dark col-md-10 mb-2 text-white" href="{% url 'theory' theory.id %}"
+                           style="opacity: .8;">
 
-                                {{ theory.title }}</a>
-                            {% if theory.profile.user == request.user %}
-                                <a class="ml-2 btn btn-sm btn-outline-info" href="{% url 'edit_theory' theory.id %}"><i
-                                        class="fas fa-edit"></i> Edit</a>
-
-                                <a class="ml-2 btn btn-sm btn-outline-danger"
-                                   href="{% url 'delete_theory' theory.id %}"><i
-                                        class="fas fa-trash-alt"></i> Delete</a>
+                            {% if theory.main_image %}
+                                <img style="height: 5vh" alt="main_img" src={{ theory.main_image.url }}>
+                            {% else %}
+                                <img style="height: 5vh" alt="main_img"
+                                     src={% static 'img/architectural-design1.jpg' %}>
                             {% endif %}
 
-                        </div>
+                            {{ theory.title }}
+                        </a>
+
+                        {# Check if user is authed#}
+                        {% if theory.profile.user == request.user %}
+                            <div class="col-md-2 mb-2">
+                                <a class="btn btn-sm btn-info" href="{% url 'edit_theory' theory.id %}"><i
+                                        class="fas fa-edit"></i> Edit</a>
+
+                                <a class="btn btn-sm btn-danger"
+                                   href="{% url 'delete_theory' theory.id %}"><i class="fas fa-trash-alt"></i> Delete
+                                </a>
+                            </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
 

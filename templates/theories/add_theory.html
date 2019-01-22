@@ -31,8 +31,10 @@
 
                                 <div class="form-group col-12">
                                     <label for="evidence">Evidence</label>
+                                    <p>Separate with ', '<br>Example: thing 1, thing 2, thing 3 </p>
                                     <textarea id="evidence" type="text" name="evidence" class="form-control"
-                                              rows="6" required>{{ theory.evidence }}</textarea>
+                                              rows="6" required>{% if theory.evidence %}{{ theory.evidence }}{% else %}example 1, example 2, example 2...{% endif %}
+                                    </textarea>
                                 </div>
 
 
