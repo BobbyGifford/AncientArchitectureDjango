@@ -16,7 +16,7 @@
                                 <div class="card-body text-dark">
                                     {# Alerts #}
                                     {% include 'partials/_alerts.html' %}
-                                    <form action="{% url 'login' %}" method="POST">
+                                    <form action="{% url 'login_user' %}" method="POST">
                                         {% csrf_token %}
                                         {% include 'partials/_alerts.html' %}
                                         <div class="form-group">
@@ -29,8 +29,10 @@
                                             <input type="password" name="password" class="form-control" required>
                                         </div>
 
-                                        <input type="submit" value="Login" class="btn btn-secondary btn-block text-white">
+                                        <input type="submit" value="Login"
+                                               class="btn btn-secondary btn-block text-white">
                                     </form>
+                                    <a href="{% url 'password_reset' %}">Password reset</a>
                                 </div>
                             </div>
                         </div>

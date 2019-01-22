@@ -32,7 +32,7 @@ def register(request):
                     user_profile.save()
 
                     messages.success(request, "Registered")
-                    return redirect('login')
+                    return redirect('login_user')
         else:
             messages.error(request, 'Passwords do not match')
             return redirect('register')
@@ -56,7 +56,6 @@ def edit_profile(request):
     }
 
     if request.method == 'POST':
-
         new_description = request.POST['description']
         old_profile = Profile.objects.get(user=request.user)
         old_profile.description = new_description
@@ -76,7 +75,6 @@ def edit_profile(request):
 
 def edit_profile_pic(request):
     if request.method == 'POST':
-
         new_profile_pic = request.FILES['profile_pic']
         old_profile = Profile.objects.get(user=request.user)
         old_profile.profile_pic = new_profile_pic
@@ -100,7 +98,7 @@ def login(request):
             return redirect('index')
         else:
             messages.error(request, 'Invalid credentials')
-            return redirect('login')
+            return redirect('login_user')
     else:
         return render(request, 'accounts/login.html')
 
@@ -108,5 +106,4 @@ def login(request):
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        messages.success(request, "Logged out")
     return redirect('index')
