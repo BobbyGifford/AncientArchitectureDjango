@@ -104,7 +104,7 @@ def edit_location(request, location_id):
 
         old_location.save()
 
-        return index(request)
+        return render(request, 'locations/location.html', context={'location': old_location})
 
     return render(request, 'locations/add_location.html', context)
 
