@@ -43,22 +43,22 @@ def add_theory(request):
 
 
 def edit_theory(request, theory_id):
-    old_theory = Theory.objects.filter(id=theory_id)[0]
+    old_theory = Theory.objects.get(pk=theory_id)
 
     context = {
         'theory': old_theory
     }
     if request.method == 'POST':
-        Theory.objects.filter(id=theory_id).update(
-            title=request.POST['title'],
-            theory=request.POST['theory'],
-            evidence=request.POST['evidence'],
-            youtube_link=request.POST['youtube_link']
-        )
+        old_theory.title = request.POST['title']
+        old_theory.theory = request.POST['theory']
+        old_theory.evidence = request.POST['evidence']
+        old_theory.youtube_link = request.POST['youtube_link']
 
         if 'main_image' in request.FILES:
-            Theory.objects.filter(id=theory_id).update(main_image=request.FILES['main_image'])
-        return index(request)
+            old_theory.main_image = request.FILES['main_image']
+
+        old_theory.save()
+        return render(request, 'theories/theory.html', context)
 
     return render(request, 'theories/add_theory.html', context)
 
