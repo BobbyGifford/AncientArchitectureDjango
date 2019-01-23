@@ -4,7 +4,7 @@ from accounts.models import Profile
 
 
 def index(request):
-    theories = Theory.objects.all()
+    theories = Theory.objects.order_by('-upload_date')
 
     context = {
         'theories': theories

@@ -1,16 +1,23 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Location
 from accounts.models import Profile
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 def index(request):
-    locations = Location.objects.all()
+    locations = Location.objects.order_by('-upload_date')
+    first_location = None
+    paged_locations = None
 
-    first_location = locations[0]
+    if len(locations) > 0:
+        first_location = locations[0]
+        paginator = Paginator(locations, 8)
+        page = request.GET.get('page')
+        paged_locations = paginator.get_page(page)
 
     context = {
         'first_location': first_location,
-        'locations': locations
+        'locations': paged_locations
     }
     return render(request, 'locations/locations.html', context)
 
@@ -38,7 +45,7 @@ def add_location(request):
             country=request.POST['country'],
             region=request.POST['region'],
             description=request.POST['description'],
-            wiki_link=request.POST['wiki_link']
+            wiki_link=request.POST['wiki_link'],
         )
 
         if 'youtube_link' in request.POST:
@@ -59,7 +66,7 @@ def add_location(request):
             new_location.sub_image_3 = request.FILES['sub_image_3']
 
         new_location.save()
-        return index(request)
+        return render(request, 'locations/location.html', context={'location': new_location})
 
     return render(request, 'locations/add_location.html', context)
 

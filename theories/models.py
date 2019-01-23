@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Profile
+from datetime import datetime
 
 
 class Theory(models.Model):
@@ -9,6 +10,7 @@ class Theory(models.Model):
     theory = models.TextField()
     evidence = models.TextField()
     youtube_link = models.CharField(max_length=150, blank=True)
+    upload_date = models.DateTimeField(default=datetime.now())
 
     class Meta:
         verbose_name_plural = "Theories"

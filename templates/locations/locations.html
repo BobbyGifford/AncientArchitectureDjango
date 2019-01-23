@@ -10,68 +10,96 @@
                     <h1 class="display-1">Explore</h1>
                     <hr color="white">
                     {% if user.is_authenticated %}
-                        <a class="btn btn-success mb-3" href="{% url 'add_location' %}"><i
+                        <a class="btn btn-sm btn-success mb-3" href="{% url 'add_location' %}"><i
                                 class="fas fa-plus-circle"></i>
                             Add Location</a>
                     {% endif %}
                 </div>
 
-                {# Show on desktop only #}
-                <div class="d-none d-md-block">
-                    <div class="row">
-                        <div class="col-8 offset-2">
-                            <div class="card bg-dark text-white">
-                                <img src="{{ first_location.main_image.url }}" class="card-img" alt="...">
-                                <div class="card-img-overlay text-center ">
-                                    <h5 class="card-title">{{ first_location.title }}</h5>
-                                    <a class="text-white" href="{% url 'location' first_location.id %}">View Details</a>
-                                    <hr style="background-color: white">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {#             #}
+                {% if locations %}
 
-                <div class="row mt-1">
-                    {% for location in locations %}
-                        <div class="card bg-dark border-white col-md-3" style="opacity: .8">
+                    <div class="row mt-1">
+                        {% for location in locations %}
+                            <div class="card bg-dark border-white col-md-3" style="opacity: .8">
 
-                            {# Check if main image exsists #}
-                            {% if location.main_image %}
-                                <img src="{{ location.main_image.url }}" class="card-img-top mt-1" alt="img_main"
-                                     style="max-height: 13vh">
-                            {% else %}
-                                <img style="max-height: 13vh" alt="main_img"
-                                     src={% static 'img/architectural-design1.jpg' %}>
-                            {% endif %}
-
-                            <div class="card-body text-center">
-                                <h5 class="card-title">{{ location.title }}</h5>
-                                <div>
-                                    <hr color="white" size="50">
-                                    {{ location.region }}, {{ location.country }}
-                                </div>
-                                <a href="{% url 'location' location.id %}" class="btn btn-outline-light">View</a>
-
-                                {% if location.profile.user == request.user %}
-                                    <br>
-                                    <a href="{% url 'edit_location' location.id %}" class="btn btn-outline-info mt-2"><i
-                                            class="fas fa-pen-square"></i> Edit</a>
-
-                                    <a href="{% url 'delete_location' location.id %}"
-                                       class="btn btn-outline-danger mt-2"><i
-                                            class="fas fa-trash-alt"></i> Delete</a>
+                                {# Check if main image exsists #}
+                                {% if location.main_image %}
+                                    <img src="{{ location.main_image.url }}" class="card-img-top mt-1" alt="img_main"
+                                         style="max-height: 13vh">
+                                {% else %}
+                                    <img style="max-height: 13vh" alt="main_img"
+                                         src={% static 'img/architectural-design1.jpg' %}>
                                 {% endif %}
 
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ location.title }}</h5>
+                                    <div>
+                                        <hr color="white" size="50">
+                                        {{ location.region }}, {{ location.country }}
+                                    </div>
+                                    <a href="{% url 'location' location.id %}" class="btn btn-outline-light">View</a>
+
+                                    {% if location.profile.user == request.user %}
+                                        <br>
+                                        <a href="{% url 'edit_location' location.id %}"
+                                           class="btn btn-outline-info mt-2"><i
+                                                class="fas fa-pen-square"></i> Edit</a>
+
+                                        <a href="{% url 'delete_location' location.id %}"
+                                           class="btn btn-outline-danger mt-2"><i
+                                                class="fas fa-trash-alt"></i> Delete</a>
+                                    {% endif %}
+
+                                </div>
                             </div>
+                        {% endfor %}
+                    </div>
 
+                    <div class="row">
+                        <div class="col-8 offset-2">
+                            <nav aria-label="Page navigation example">
+                                {% if locations.has_other_pages %}
+                                    <ul class="pagination">
+                                        {% if locations.has_previous %}
+                                            <li class="page-item">
+                                                <a href="?page={{ locations.previous_page_number }}"
+                                                   class="page-link">&laquo;</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link">&laquo;</a>
+                                            </li>
+                                        {% endif %}
+                                        {% for i in locations.paginator.page_range %}
+                                            {% if locations.number == i %}
+                                                <li class="page-item active">
+                                                    <a href="" class="page-link">{{ i }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="page-item">
+                                                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if locations.has_next %}
+                                            <li class="page-item">
+                                                <a href="?page={{ locations.next_page_number }}"
+                                                   class="page-link">&raquo;</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link">&raquo;</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </nav>
                         </div>
+                    </div>
 
-                    {% endfor %}
-                </div>
-
-
+                {% else %}
+                    <p>No locations</p>
+                {% endif %}
             </div>
         </div>
     </div>
