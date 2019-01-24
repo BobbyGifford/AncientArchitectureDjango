@@ -11,14 +11,14 @@ def register(request):
         # Fetch user values
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
-        username = request.POST['username']
         email = request.POST['email']
+
         password = request.POST['password']
         password2 = request.POST['password2']
 
         #     Password Check
         if password == password2:
-            if User.objects.filter(username=username).exists():
+            if User.objects.filter(username=email).exists():
                 messages.error(request, "Username taken")
                 return redirect('register')
             else:
@@ -26,7 +26,7 @@ def register(request):
                     messages.error(request, "Email taken")
                     return redirect('register')
                 else:
-                    user = User.objects.create_user(username=username, password=password, email=email,
+                    user = User.objects.create_user(username=email, password=password, email=email,
                                                     first_name=first_name, last_name=last_name)
                     user_profile = Profile(user=user)
 
@@ -65,6 +65,9 @@ def edit_profile(request):
     context = {
         'profile': user_profile
     }
+
+    if user_profile.user != request.user:
+        return render(request, 'pages/index.html')
 
     if request.method == 'POST':
         new_description = request.POST['description']
