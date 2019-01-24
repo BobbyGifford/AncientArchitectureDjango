@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages, auth
 from django.contrib.auth.models import User
 from .models import Profile
+from theories.models import Theory
+from locations.models import Location
 
 
 def register(request):
@@ -42,8 +44,17 @@ def register(request):
 
 def profile(request):
     user_profile = Profile.objects.get(user=request.user)
+
+    # Search for user's locations
+    user_locations = Location.objects.filter(profile=user_profile).order_by('-upload_date')
+
+    # Search for user's theories
+    user_theories = Theory.objects.filter(profile=user_profile).order_by('-upload_date')
+
     context = {
-        'profile': user_profile
+        'profile': user_profile,
+        'locations': user_locations,
+        'theories': user_theories
     }
 
     return render(request, 'accounts/profile.html', context)
@@ -60,29 +71,14 @@ def edit_profile(request):
         old_profile = Profile.objects.get(user=request.user)
         old_profile.description = new_description
 
-        # Enter condition for if profile pic was changed.
-        # _____________________________________________________________
-        # if 'profile_image' in request.FILES:
-        #   old_profile.profile_image = request.FILES['profile_image'}
-        # _____________________________________________________________
+        if 'profile_pic' in request.FILES:
+            old_profile.profile_pic = request.FILES['profile_pic']
 
         old_profile.save()
 
         return render(request, 'pages/index.html')
 
     return render(request, 'accounts/edit_profile.html', context)
-
-
-def edit_profile_pic(request):
-    if request.method == 'POST':
-        new_profile_pic = request.FILES['profile_pic']
-        old_profile = Profile.objects.get(user=request.user)
-        old_profile.profile_pic = new_profile_pic
-        old_profile.save()
-
-        return render(request, 'pages/index.html')
-
-    return render(request, 'accounts/edit_profile_pic.html')
 
 
 def login(request):

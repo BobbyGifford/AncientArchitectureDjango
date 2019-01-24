@@ -9,6 +9,11 @@
                     <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="form-group">
+                            <label for="profile_pic">Profile Pic</label>
+                            <input value="{{ profile.profile_pic }}" type="file" name="profile_pic"
+                                   class="form-control-file">
+                        </div>
+                        <div class="form-group">
                             <label for="description">Description</label>
                             <textarea type="text" name="description" class="form-control"
                                       required>{{ profile.description }}</textarea>

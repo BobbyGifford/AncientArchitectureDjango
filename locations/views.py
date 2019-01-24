@@ -78,6 +78,9 @@ def edit_location(request, location_id):
         'location': old_location
     }
 
+    if old_location.profile.user != request.user:
+        return render(request, 'pages/index.html')
+
     if request.method == 'POST':
 
         old_location.title = request.POST['title']
@@ -110,5 +113,9 @@ def edit_location(request, location_id):
 
 
 def delete_location(request, location_id):
-    Location.objects.filter(id=location_id).delete()
-    return index(request)
+    deleted_location = Location.objects.get(pk=location_id)
+
+    if deleted_location.profile.user == request.user:
+        deleted_location.delete()
+
+    return render(request, 'pages/index.html')

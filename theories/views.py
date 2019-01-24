@@ -26,8 +26,7 @@ def theory(request, theory_id):
 
 def add_theory(request):
     context = {
-        'add_or_update': 'Add',
-        theory: 'new_theory'
+        'add_or_update': 'Add'
     }
     if request.method == 'POST':
         new_theory = Theory(
@@ -41,7 +40,7 @@ def add_theory(request):
         if 'main_image' in request.FILES:
             new_theory.main_image = request.FILES['main_image']
         new_theory.save()
-        return render(request, 'theories/theory.html', context)
+        return theory(request, new_theory.id)
 
     return render(request, 'theories/add_theory.html', context)
 
@@ -53,6 +52,10 @@ def edit_theory(request, theory_id):
         'add_or_update': 'Update',
         'theory': old_theory
     }
+
+    if old_theory.profile.user != request.user:
+        return render(request, 'pages/index.html')
+
     if request.method == 'POST':
         old_theory.title = request.POST['title']
         old_theory.theory = request.POST['theory']
@@ -69,5 +72,9 @@ def edit_theory(request, theory_id):
 
 
 def delete_theory(request, theory_id):
-    Theory.objects.filter(id=theory_id).delete()
+    deleted_theory = Theory.objects.get(pk=theory_id)
+
+    if deleted_theory.profile.user == request.user:
+        deleted_theory.delete()
+
     return index(request)
