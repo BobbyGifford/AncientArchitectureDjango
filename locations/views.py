@@ -6,18 +6,13 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 def index(request):
     locations = Location.objects.order_by('-upload_date')
-    first_location = None
-    paged_locations = None
 
-    if len(locations) > 0:
-        first_location = locations[0]
-        paginator = Paginator(locations, 8)
-        page = request.GET.get('page')
-        paged_locations = paginator.get_page(page)
+    # paginator = Paginator(locations, 8)
+    # page = request.GET.get('page')
+    # paged_locations = paginator.get_page(page)
 
     context = {
-        'first_location': first_location,
-        'locations': paged_locations
+        'locations': locations
     }
     return render(request, 'locations/locations.html', context)
 
