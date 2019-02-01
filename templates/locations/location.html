@@ -11,21 +11,30 @@
         <div class="overlay">
     {% endif %}
 
+
+{# Desktop View #}
+<div class="d-none d-md-block text-center" style="opacity: .5">
+    <h1>{{ location.title }} {{ location.region }}, {{ location.country }}</h1>
+</div>
+{#            #}
+
+{# Mobile View #}
+<div class="pb4 d-sm-none">
+    <h3>{{ location.title }}</h3>
+    <h3>{{ location.region }}, {{ location.country }}</h3>
+</div>
+{#            #}
+    <div class="text-center mt-3">
+        <a href="#description" class="btn btn-light">Description</a>
+        {% if location.youtube_link %}
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-light" data-toggle="modal"
+                    data-target="#locationVideo">
+                View Video
+            </button>
+        {% endif %}
+    </div>
 <div class="container">
-
-    {# Desktop View #}
-    <div class="text-center d-none d-md-block">
-        <h1 class="display-1">{{ location.title }}</h1>
-        <h2 class="display-2">{{ location.region }}, {{ location.country }}</h2>
-    </div>
-    {#            #}
-
-    {# Mobile View #}
-    <div class="pb4 d-sm-none">
-        <h3>{{ location.title }}</h3>
-        <h3>{{ location.region }}, {{ location.country }}</h3>
-    </div>
-    {#            #}
 
     <div class="row">
         {% if location.sub_image_1 %}
@@ -51,17 +60,6 @@
                      style="background: url({{ location.sub_image_3.url }}) no-repeat center center; background-size: cover;">
                 </div>
             </a>
-        {% endif %}
-    </div>
-
-    <div class="text-center mt-3">
-        <a href="#description" class="btn btn-light">Description</a>
-        {% if location.youtube_link %}
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-light" data-toggle="modal"
-                    data-target="#locationVideo">
-                View Video
-            </button>
         {% endif %}
     </div>
 
