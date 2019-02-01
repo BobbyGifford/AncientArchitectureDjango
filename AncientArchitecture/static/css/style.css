@@ -9,6 +9,12 @@
     color: #fff;
 }
 
+.location-feature {
+    min-height: 100vh;
+    position: relative;
+    color: rgba(51, 51, 51, 0.5);
+}
+
 
 .feature .overlay {
     position: absolute;
@@ -51,6 +57,10 @@
     padding-bottom: 150%;
 }
 
+.aspect-ratio--gallery {
+    padding-bottom: 100%;
+}
+
 .fl {
     float: left;
     _display: inline;
@@ -84,6 +94,10 @@
 
 .w-25 {
     width: 25%;
+}
+
+.w-gallery {
+    width: 15%;
 }
 
 .overflow-hidden {

@@ -3,113 +3,103 @@
 {% load static %}
 
 {% block content %}
-    <div class="feature">
+    {% if location.main_image %}
+        <div class="location-feature"
+             style="background: url({{ location.main_image.url }}) no-repeat top; background-size: cover;">
+    {% else %}
+        <div class="feature">
         <div class="overlay">
-            <div class="container">
+    {% endif %}
 
-                {# Desktop View #}
-                <div class="text-center d-none d-md-block">
-                    <h1 class="display-1">{{ location.title }}</h1>
-                    <h2 class="display-2">{{ location.region }}, {{ location.country }}</h2>
+<div class="container">
+
+    {# Desktop View #}
+    <div class="text-center d-none d-md-block">
+        <h1 class="display-1">{{ location.title }}</h1>
+        <h2 class="display-2">{{ location.region }}, {{ location.country }}</h2>
+    </div>
+    {#            #}
+
+    {# Mobile View #}
+    <div class="pb4 d-sm-none">
+        <h3>{{ location.title }}</h3>
+        <h3>{{ location.region }}, {{ location.country }}</h3>
+    </div>
+    {#            #}
+
+    <div class="row">
+        {% if location.sub_image_1 %}
+            <a href="{{ location.sub_image_1.url }}" class="fl w-gallery link overflow-hidden"
+               style="margin-left: 15vw; opacity: .7">
+                <div role="img" aria-label="{{ location.sub_image_1.url }}" class="grow aspect-ratio--gallery "
+                     style="background: url({{ location.sub_image_1.url }}) no-repeat center center; background-size: cover;">
                 </div>
-                {#            #}
+            </a>
+        {% endif %}
 
-                {# Mobile View #}
-                <div class="pb4 d-sm-none">
-                    <h3>{{ location.title }}</h3>
-                    <h3>{{ location.region }}, {{ location.country }}</h3>
+        {% if location.sub_image_2 %}
+            <a href="{{ location.sub_image_2.url }}" class="fl w-gallery link overflow-hidden" style=" opacity: .7">
+                <div role="img" aria-label="{{ location.sub_image_2.url }}" class="grow aspect-ratio--gallery "
+                     style="background: url({{ location.sub_image_2.url }}) no-repeat center center; background-size: cover;">
                 </div>
-                {#            #}
+            </a>
+        {% endif %}
 
-                <hr color="white"/>
-                {% if location.main_image %}
-                    <div class="row">
-                        <div class="col-8 offset-2">
-                            <img class="img-fluid" src="{{ location.main_image.url }}" alt="main_img"/>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="row">
-                        <div class="col-8 offset-2">
-                            <img class="img-fluid" alt="main_img" src={% static 'img/architectural-design1.jpg' %}>
-                        </div>
-                    </div>
-                {% endif %}
-
-
-
-                <div class="row">
-                    {% if location.sub_image_1 %}
-                        <div class="col-md-4">
-                            <a href="{{ location.sub_image_1.url }}">
-                                <img src="{{ location.sub_image_1.url }}" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    {% endif %}
-
-                    {% if location.sub_image_2 %}
-                        <div class="col-md-4">
-                            <a href="{{ location.sub_image_2.url }}">
-                                <img src="{{ location.sub_image_2.url }}" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    {% endif %}
-
-                    {% if location.sub_image_3 %}
-                        <div class="col-md-4">
-                            <a href="{{ location.sub_image_3.url }}">
-                                <img src="{{ location.sub_image_3.url }}" alt="" class="img-fluid">
-                            </a>
-                        </div>
-                    {% endif %}
+        {% if location.sub_image_3 %}
+            <a href="{{ location.sub_image_3.url }}" class="fl w-gallery link overflow-hidden" style=" opacity: .7">
+                <div role="img" aria-label="{{ location.sub_image_3.url }}" class="grow aspect-ratio--gallery"
+                     style="background: url({{ location.sub_image_3.url }}) no-repeat center center; background-size: cover;">
                 </div>
+            </a>
+        {% endif %}
+    </div>
 
-                <div class="text-center mt-3">
-                    <a href="#description" class="btn btn-outline-light">Description</a>
-                    {% if location.youtube_link %}
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-outline-light" data-toggle="modal"
-                                data-target="#locationVideo">
-                            View Video
-                        </button>
-                    {% endif %}
+    <div class="text-center mt-3">
+        <a href="#description" class="btn btn-light">Description</a>
+        {% if location.youtube_link %}
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-light" data-toggle="modal"
+                    data-target="#locationVideo">
+                View Video
+            </button>
+        {% endif %}
+    </div>
+
+    {# Modal Popup #}
+    <div class="modal fade" id="locationVideo" tabindex="-1" role="dialog"
+         aria-labelledby="locationVideo" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="locationVideo">{{ location.title }}</h5>
                 </div>
-
-                {# Modal Popup #}
-                <div class="modal fade" id="locationVideo" tabindex="-1" role="dialog"
-                     aria-labelledby="locationVideo" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content bg-dark">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="locationVideo">{{ location.title }}</h5>
-                            </div>
-                            <div class="modal-body">
-                                <iframe width="100%" src="{{ location.youtube_link }}"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="modal-body">
+                    <iframe width="100%" src="{{ location.youtube_link }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
                 </div>
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="text-white bg-dark" style="min-height: 35vh; position: relative">
-        <div class="container">
-            <div class="row">
-                <div id="description" class="col-md-12 bg-dark">
-                    <p class="my-3">{{ location.description }}</p>
-                    <p class="mt-3">Added
-                        by: {{ location.profile.user.first_name }} {{ location.profile.user.last_name }}</p>
-                </div>
+</div>
+</div>
+</div>
+
+<div class="text-white bg-dark" style="min-height: 35vh; position: relative">
+    <div class="container">
+        <div class="row">
+            <div id="description" class="col-md-12 bg-dark">
+                <p class="my-3">{{ location.description }}</p>
+                <p class="mt-3">Added
+                    by: {{ location.profile.user.first_name }} {{ location.profile.user.last_name }}</p>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

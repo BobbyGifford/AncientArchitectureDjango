@@ -44,8 +44,7 @@ def add_location(request):
         )
 
         if 'youtube_link' in request.POST:
-            parsed_link = request.POST['youtube_link']
-            parsed_link.replace('watch?v=', 'embed/')
+            parsed_link = request.POST['youtube_link'].replace('watch?v=', 'embed/')
             new_location.youtube_link = parsed_link
 
         if 'main_image' in request.FILES:
@@ -84,9 +83,9 @@ def edit_location(request, location_id):
         old_location.wiki_link = request.POST['wiki_link']
 
         if 'youtube_link' in request.POST:
-            parsed_link = request.POST['youtube_link']
-            parsed_link.replace('watch?v=', 'embed/')
+            parsed_link = request.POST['youtube_link'].replace('watch?v=', 'embed/')
             old_location.youtube_link = parsed_link
+            print(parsed_link)
 
         if 'main_image' in request.FILES:
             old_location.main_image = request.FILES['main_image']
