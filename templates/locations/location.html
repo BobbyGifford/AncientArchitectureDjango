@@ -5,7 +5,7 @@
 {% block content %}
     {% if location.main_image %}
         <div class="location-feature"
-             style="background: url({{ location.main_image.url }}) no-repeat center top;">
+             style="background: url({{ location.main_image.url }}) no-repeat center top; background-size: cover; width: 100%;">
     {% else %}
         <div class="feature">
         <div class="overlay">
